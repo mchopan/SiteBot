@@ -1,15 +1,19 @@
-import resolve from '@rollup/plugin-node-resolve';
-import typescript from '@rollup/plugin-typescript';
+const resolve = require('@rollup/plugin-node-resolve');
+const typescript = require('@rollup/plugin-typescript');
 
-export default {
+module.exports = {
     input: 'src/sitebot.ts',
     output: {
-        file: 'dist/sitebot.js',
+        dir: 'dist',
         format: 'es'
     },
     plugins: [
         resolve(),
-        typescript()
+        typescript({
+            outDir: 'dist',
+            declaration: true,
+            declarationDir: 'dist/types'
+        })
     ],
     external: ['lit']
 }; 

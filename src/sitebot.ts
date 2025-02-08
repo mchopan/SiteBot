@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styles } from './styles';
 import { CustomStyles } from './types';
@@ -14,13 +14,12 @@ export class SiteBot extends LitElement {
   @property({ type: Object }) customStyles: CustomStyles = {};
 
   private messages: { text: string; isBot: boolean }[] = [];
-  private textFileContent: string = '';
 
   async firstUpdated() {
     if (this.textFile) {
       try {
         const response = await fetch(this.textFile);
-        this.textFileContent = await response.text();
+        await response.text();
       } catch (error) {
         console.error('Error loading text file:', error);
       }
@@ -28,22 +27,15 @@ export class SiteBot extends LitElement {
   }
 
   private async sendMessage(message: string) {
-    // Add user message
     this.messages = [...this.messages, { text: message, isBot: false }];
     this.requestUpdate();
 
-    // Call AI API here with this.apiKey and message
-    // This is a placeholder - implement your actual AI API call
     const aiResponse = await this.callAIAPI(message);
-    
-    // Add bot response
     this.messages = [...this.messages, { text: aiResponse, isBot: true }];
     this.requestUpdate();
   }
 
-  private async callAIAPI(message: string): Promise<string> {
-    // Implement your AI API call here
-    // This is just a placeholder
+  private async callAIAPI(_userMessage: string): Promise<string> {
     return "This is a placeholder response. Implement your AI API call here.";
   }
 

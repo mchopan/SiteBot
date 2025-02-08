@@ -17,14 +17,14 @@ A lightweight, customizable AI chatbot that works with any JavaScript framework 
 ## 📦 Installation
 
 ```bash
-npm install sitebot
+npm install @mchopan/sitebot
 ```
 
 ## 🚀 Quick Start
 
 ### React
 ```jsx
-import 'sitebot';
+import '@mchopan/sitebot';
 
 function App() {
   const customStyles = {
@@ -62,7 +62,7 @@ function App() {
 </template>
 
 <script>
-import 'sitebot';
+import '@mchopan/sitebot';
 
 export default {
   data() {
@@ -86,7 +86,7 @@ export default {
 ### Angular
 ```typescript
 // app.module.ts
-import 'sitebot';
+import '@mchopan/sitebot';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
@@ -121,7 +121,7 @@ export class AppComponent {
 
 ### Vanilla JavaScript
 ```html
-<script src="https://unpkg.com/sitebot"></script>
+<script src="https://unpkg.com/@mchopan/sitebot"></script>
 
 <site-bot id="myBot" header-name="AI Assistant"></site-bot>
 

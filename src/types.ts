@@ -6,5 +6,10 @@ export interface CustomStyles {
     messageBubbleColor?: string;
     userMessageColor?: string;
     botMessageColor?: string;
+    fontFamily?: string;
+    position?: 'left' | 'right';
+    inputBackground?: string;
+    inputColor?: string;
+    inputBorderColor?: string;
     [key: string]: string | undefined;
   }

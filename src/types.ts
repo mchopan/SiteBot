@@ -1,13 +1,17 @@
 export interface CustomStyles {
-    containerWidth?: string;
-    containerHeight?: string;
+    // Main theme color
+    primaryColor?: string;
+    
+    // Basic customization
+    position?: 'left' | 'right';
+    width?: string;
+    height?: string;
+    
+    // Advanced customization (optional)
     headerBackground?: string;
-    headerColor?: string;
-    messageBubbleColor?: string;
     userMessageColor?: string;
     botMessageColor?: string;
     fontFamily?: string;
-    position?: 'left' | 'right';
     inputBackground?: string;
     inputColor?: string;
     inputBorderColor?: string;

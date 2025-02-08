@@ -63,7 +63,19 @@ export class SiteBot extends LitElement {
       parsedValue = value;
     }
 
-    this._customStyles = parsedValue || {};
+    // Apply default theme if primary color is provided
+    if (parsedValue?.primaryColor) {
+      this._customStyles = {
+        headerBackground: parsedValue.primaryColor,
+        userMessageColor: parsedValue.primaryColor,
+        botMessageColor: '#f0f0f0',
+        inputBorderColor: parsedValue.primaryColor,
+        ...parsedValue
+      };
+    } else {
+      this._customStyles = parsedValue || {};
+    }
+
     this.requestUpdate('customStyles', oldValue);
     this.updateStyles();
   }
@@ -80,12 +92,30 @@ export class SiteBot extends LitElement {
 
   private updateStyles() {
     if (this._customStyles) {
+      // First, set the primary color if provided
+      if (this._customStyles.primaryColor) {
+        this.style.setProperty('--sitebot-primary-color', this._customStyles.primaryColor);
+      }
+
+      // Then apply other styles
+      const styleMapping: Record<string, string> = {
+        width: '--sitebot-width',
+        height: '--sitebot-height',
+        fontFamily: '--sitebot-font-family',
+        userMessageColor: '--sitebot-user-message-color',
+        botMessageColor: '--sitebot-bot-message-color',
+        inputBackground: '--sitebot-input-background',
+        inputBorderColor: '--sitebot-input-border-color',
+        inputColor: '--sitebot-input-color'
+      };
+
       Object.entries(this._customStyles).forEach(([key, value]) => {
-        if (value) {
-          this.style.setProperty(`--sitebot-${key}`, value);
+        if (value && styleMapping[key]) {
+          this.style.setProperty(styleMapping[key], value);
         }
       });
       
+      // Handle position separately
       if (this._customStyles.position) {
         this.setAttribute('position', this._customStyles.position);
       }

@@ -19,7 +19,7 @@ export const styles = css`
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: var(--sitebot-header-background, #007bff);
+    background: var(--sitebot-primary-color, #007bff);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -35,7 +35,7 @@ export const styles = css`
   }
 
   .chat-trigger:focus-visible {
-    outline: 2px solid var(--sitebot-header-background, #007bff);
+    outline: 2px solid var(--sitebot-primary-color, #007bff);
     outline-offset: 2px;
   }
 
@@ -67,8 +67,8 @@ export const styles = css`
     position: absolute;
     bottom: 80px;
     right: 0;
-    width: var(--sitebot-container-width, 300px);
-    height: var(--sitebot-container-height, 400px);
+    width: var(--sitebot-width, 300px);
+    height: var(--sitebot-height, 400px);
     border-radius: 12px;
     display: flex;
     flex-direction: column;
@@ -93,7 +93,7 @@ export const styles = css`
   }
 
   .chatbot-header {
-    background: var(--sitebot-header-background, #007bff);
+    background: var(--sitebot-primary-color, #007bff);
     color: white;
     padding: 10px;
     display: flex;
@@ -205,7 +205,7 @@ export const styles = css`
   }
 
   .message.user {
-    background: var(--sitebot-user-message-color, #007bff);
+    background: var(--sitebot-primary-color, #007bff);
     color: white;
     align-self: flex-end;
   }
@@ -242,7 +242,7 @@ export const styles = css`
   }
 
   .chatbot-input input:focus {
-    border-color: var(--sitebot-header-background, #007bff);
+    border-color: var(--sitebot-primary-color, #007bff);
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
   }
 

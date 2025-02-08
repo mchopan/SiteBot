@@ -12,4 +12,13 @@ export interface CustomStyles {
     inputColor?: string;
     inputBorderColor?: string;
     [key: string]: string | undefined;
-  }
+}
+
+export type AIProvider = 'openai' | 'gemini' | 'claude' | 'deepseek';
+
+export interface AIConfig {
+    provider: AIProvider;
+    apiKey: string;
+    apiEndpoint?: string;
+    model?: string;
+}

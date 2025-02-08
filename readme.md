@@ -1,84 +1,171 @@
-# Sitebot - Universal Chatbot for Any JS Framework
+# 🤖 SiteBot - Universal AI Chatbot Component
 
-## Introduction
-Sitebot is a lightweight, customizable chatbot that can be integrated into **React, Vue, Angular, or plain JavaScript** applications. It connects to an AI API and processes queries based on a website's details provided in a text file.
+A lightweight, customizable AI chatbot that works with any JavaScript framework or vanilla JS. Supports multiple AI providers including OpenAI, Gemini, Claude, and DeepSeek.
 
-## Features
-✅ **Framework-Agnostic** - Works with React, Vue, Angular, or plain JavaScript.
-✅ **Customizable UI** - Modify styles, header name, and bot icon.
-✅ **Text File Integration** - Load website details dynamically.
-✅ **AI-Powered** - Uses an external AI API for intelligent responses.
-✅ **Easy to Use** - Simply add the `<site-bot>` tag or use the JavaScript API.
+## ✨ Features
 
-## Installation
-Install via npm:
-```sh
+- 🔌 **Framework Agnostic** - Works everywhere
+- 🎨 **Fully Customizable** - Style it your way
+- 🤖 **Multiple AI Providers** - OpenAI, Gemini, Claude, DeepSeek
+- ♿ **Accessible** - ARIA support & keyboard navigation
+- 📱 **Responsive** - Works on all devices
+- 🌐 **Web Component** - Use with any framework
+
+## 📦 Installation
+
+```bash
 npm install sitebot
 ```
-Or include it via CDN:
-```html
-<script src="https://cdn.jsdelivr.net/npm/sitebot"></script>
-```
 
-## Usage
-### **In Vanilla JS**
-```html
-<site-bot 
-  apiKey="YOUR_AI_API_KEY" 
-  textFile="./website-info.txt" 
-  headerName="My Chatbot" 
-  botIcon="./boticon.png"
-></site-bot>
-```
+## 🚀 Quick Start
 
-### **In React**
-```tsx
-import "sitebot";
+### React
+```jsx
+import 'sitebot';
 
-const App = () => {
+function App() {
   return (
-    <div>
-      <site-bot 
-        apiKey="YOUR_AI_API_KEY" 
-        textFile="./website-info.txt" 
-        headerName="My Chatbot" 
-        botIcon="./boticon.png"
-      ></site-bot>
-    </div>
+    <site-bot
+      aiconfig={JSON.stringify({
+        provider: 'openai',  // or 'gemini', 'claude', 'deepseek'
+        apiKey: 'your-api-key',
+        model: 'gpt-3.5-turbo'  // optional
+      })}
+      header-name="AI Assistant"
+      bot-icon="path/to/icon.png"
+    />
   );
-};
+}
 ```
 
-### **In Vue**
+### Vue
 ```vue
 <template>
-  <site-bot apiKey="YOUR_AI_API_KEY" textFile="./website-info.txt"></site-bot>
+  <site-bot
+    :aiconfig="JSON.stringify(aiConfig)"
+    header-name="AI Assistant"
+    bot-icon="path/to/icon.png"
+  />
 </template>
 
 <script>
-import "sitebot";
+import 'sitebot';
+
 export default {
-  name: "ChatBotComponent",
-};
+  data() {
+    return {
+      aiConfig: {
+        provider: 'openai',
+        apiKey: 'your-api-key',
+        model: 'gpt-3.5-turbo'
+      }
+    }
+  }
+}
 </script>
 ```
 
-### **In Angular**
-```html
-<site-bot apiKey="YOUR_AI_API_KEY" textFile="./website-info.txt"></site-bot>
+### Angular
+```typescript
+// app.module.ts
+import 'sitebot';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+@NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+
+// component.ts
+@Component({
+  template: `
+    <site-bot
+      [attr.aiconfig]="aiConfigString"
+      header-name="AI Assistant"
+      bot-icon="path/to/icon.png"
+    ></site-bot>
+  `
+})
+export class AppComponent {
+  aiConfigString = JSON.stringify({
+    provider: 'openai',
+    apiKey: 'your-api-key',
+    model: 'gpt-3.5-turbo'
+  });
+}
 ```
 
-## API Options
-| Prop         | Type     | Description |
-|-------------|---------|-------------|
-| `apiKey`    | String  | Required. Your AI API key. |
-| `textFile`  | String  | Path to the text file containing website details. |
-| `headerName` | String  | (Optional) Chatbot header text. Default: "Chatbot". |
-| `botIcon`   | String  | (Optional) Path to a custom bot icon. |
-| `customStyles` | Object | (Optional) Custom styles for the chatbot. |
+### Vanilla JavaScript
+```html
+<script src="https://unpkg.com/sitebot"></script>
 
-## Contributing
-Feel free to contribute! Open a pull request or report issues in the repository.
+<site-bot id="myBot" header-name="AI Assistant"></site-bot>
 
-## License
-MIT License.
+<script>
+  const bot = document.getElementById('myBot');
+  bot.aiconfig = JSON.stringify({
+    provider: 'openai',
+    apiKey: 'your-api-key',
+    model: 'gpt-3.5-turbo'
+  });
+</script>
+```
+
+## ⚙️ Configuration
+
+### AI Providers
+```javascript
+{
+  provider: 'openai' | 'gemini' | 'claude' | 'deepseek',
+  apiKey: 'your-api-key',
+  model: 'model-name',  // optional
+  apiEndpoint: 'custom-endpoint'  // optional
+}
+```
+
+### Styling
+```javascript
+const customStyles = {
+  containerWidth: '350px',
+  containerHeight: '500px',
+  headerBackground: '#007bff',
+  userMessageColor: '#007bff',
+  botMessageColor: '#f0f0f0',
+  fontFamily: 'Arial, sans-serif',
+  position: 'right' | 'left'
+}
+```
+
+## 🎮 Features
+
+- **Keyboard Shortcuts**
+  - `Ctrl + /` or `Cmd + /`: Focus chat input
+  - `Esc`: Close chat
+  - `Enter`: Send message
+
+- **Accessibility**
+  - Screen reader support
+  - ARIA labels
+  - Keyboard navigation
+  - Focus management
+
+- **Responsive Design**
+  - Mobile-friendly
+  - Adapts to screen size
+  - Touch-friendly
+
+## 🔑 API Reference
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `aiconfig` | String (JSON) | AI provider configuration |
+| `header-name` | String | Chat header text |
+| `bot-icon` | String | URL for bot icon |
+| `customstyles` | String (JSON) | Custom styling options |
+
+## 📝 License
+
+MIT License - feel free to use in any project!
+
+## 🤝 Contributing
+
+Contributions welcome! Please feel free to submit a Pull Request.

@@ -1,82 +1,84 @@
-# Chatbot AI
+# Sitebot - Universal Chatbot for Any JS Framework
 
-A framework-agnostic AI-powered chatbot for websites. This chatbot allows users to integrate AI-powered conversations into their websites easily. It reads website details from a specified text file and sends queries to an AI backend for processing.
+## Introduction
+Sitebot is a lightweight, customizable chatbot that can be integrated into **React, Vue, Angular, or plain JavaScript** applications. It connects to an AI API and processes queries based on a website's details provided in a text file.
 
 ## Features
-- Works with any JavaScript framework or library.
-- Uses an AI API key provided by the user.
-- Reads website details from a `.txt` file.
-- Sends user queries along with website details to the backend.
-- Receives and processes AI-generated responses.
+✅ **Framework-Agnostic** - Works with React, Vue, Angular, or plain JavaScript.
+✅ **Customizable UI** - Modify styles, header name, and bot icon.
+✅ **Text File Integration** - Load website details dynamically.
+✅ **AI-Powered** - Uses an external AI API for intelligent responses.
+✅ **Easy to Use** - Simply add the `<site-bot>` tag or use the JavaScript API.
 
 ## Installation
+Install via npm:
 ```sh
 npm install sitebot
 ```
+Or include it via CDN:
+```html
+<script src="https://cdn.jsdelivr.net/npm/sitebot"></script>
+```
 
 ## Usage
-### Basic Setup
-```ts
-import Chatbot from "sitebot";
-
-const bot = new Chatbot({
-  apiKey: "YOUR_AI_API_KEY",
-  filePath: "./website-info.txt"
-});
-
-bot.onMessage((response) => {
-  console.log("AI Response:", response);
-});
-
-bot.sendMessage("What is this website about?");
+### **In Vanilla JS**
+```html
+<site-bot 
+  apiKey="YOUR_AI_API_KEY" 
+  textFile="./website-info.txt" 
+  headerName="My Chatbot" 
+  botIcon="./boticon.png"
+></site-bot>
 ```
 
-## Configuration Options
-| Option    | Type   | Description |
-|-----------|--------|-------------|
-| `apiKey`  | string | The AI API key required for authentication. |
-| `filePath` | string | Path to the `.txt` file containing website details. |
+### **In React**
+```tsx
+import "sitebot";
 
-## API Methods
-### `constructor(options: { apiKey: string, filePath: string })`
-Initializes the chatbot with the given API key and text file path.
-
-### `onMessage(callback: (response: string) => void)`
-Registers a callback function that gets triggered when a response is received.
-
-### `sendMessage(text: string)`
-Sends a message to the AI API and processes the response.
-
-## Example `.txt` File Format
-Your `website-info.txt` should contain structured details about the website:
-```
-Website Name: My Awesome Site
-Description: This is a platform for AI-powered chatbots.
-Services: AI Chatbot, API Integrations, Web Development
+const App = () => {
+  return (
+    <div>
+      <site-bot 
+        apiKey="YOUR_AI_API_KEY" 
+        textFile="./website-info.txt" 
+        headerName="My Chatbot" 
+        botIcon="./boticon.png"
+      ></site-bot>
+    </div>
+  );
+};
 ```
 
-## Build & Development
-### Install Dependencies
-```sh
-npm install
+### **In Vue**
+```vue
+<template>
+  <site-bot apiKey="YOUR_AI_API_KEY" textFile="./website-info.txt"></site-bot>
+</template>
+
+<script>
+import "sitebot";
+export default {
+  name: "ChatBotComponent",
+};
+</script>
 ```
 
-### Build the Package
-```sh
-npm run build
+### **In Angular**
+```html
+<site-bot apiKey="YOUR_AI_API_KEY" textFile="./website-info.txt"></site-bot>
 ```
 
-### Run Tests
-```sh
-npm test
-```
+## API Options
+| Prop         | Type     | Description |
+|-------------|---------|-------------|
+| `apiKey`    | String  | Required. Your AI API key. |
+| `textFile`  | String  | Path to the text file containing website details. |
+| `headerName` | String  | (Optional) Chatbot header text. Default: "Chatbot". |
+| `botIcon`   | String  | (Optional) Path to a custom bot icon. |
+| `customStyles` | Object | (Optional) Custom styles for the chatbot. |
 
 ## Contributing
-1. Fork the repository.
-2. Create a new branch (`feature-branch`).
-3. Commit your changes.
-4. Push to the branch and submit a PR.
+Feel free to contribute! Open a pull request or report issues in the repository.
 
 ## License
-This project is licensed under the MIT License.
-
+MIT License.

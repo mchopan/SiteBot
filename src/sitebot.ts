@@ -130,17 +130,17 @@ export class SiteBot extends LitElement {
     // Add keyboard navigation
     this.addEventListener('keydown', this.handleKeyDown);
 
-    // Announce new messages to screen readers
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-          this.announceNewMessage();
-        }
-      });
+    // Add scroll observer
+    const observer = new MutationObserver(() => {
+      this.scrollToBottom();
     });
 
     if (this.messagesRef) {
-      observer.observe(this.messagesRef, { childList: true, subtree: true });
+      observer.observe(this.messagesRef, { 
+        childList: true, 
+        subtree: true,
+        characterData: true 
+      });
     }
 
     // Load text file if provided
@@ -155,6 +155,8 @@ export class SiteBot extends LitElement {
         console.error('Error loading text file:', error);
         this.error = 'Failed to load context file. The chatbot may have limited functionality.';
       }
+    } else {
+      this.error = 'Please provide a context file to help me better assist users with website-related questions.';
     }
   }
 
@@ -214,12 +216,14 @@ export class SiteBot extends LitElement {
   }
 
   private scrollToBottom(smooth = true) {
-    if (this.messagesRef) {
-      this.messagesRef.scrollTo({
-        top: this.messagesRef.scrollHeight,
-        behavior: smooth ? 'smooth' : 'auto'
-      });
-    }
+    setTimeout(() => {
+      if (this.messagesRef) {
+        this.messagesRef.scrollTo({
+          top: this.messagesRef.scrollHeight,
+          behavior: smooth ? 'smooth' : 'auto'
+        });
+      }
+    }, 100); // Small delay to ensure content is rendered
   }
 
   private async sendMessage(message: string) {
@@ -233,11 +237,13 @@ export class SiteBot extends LitElement {
       this.messages = [...this.messages, { text: message, isBot: false, timestamp }];
       this.requestUpdate();
       this.scrollToBottom();
+      this.announceNewMessage();
       
       this.isLoading = true;
       const aiResponse = await this.callAIAPI(message);
       const responseTimestamp = new Date().toLocaleTimeString();
       this.messages = [...this.messages, { text: aiResponse, isBot: true, timestamp: responseTimestamp }];
+      this.announceNewMessage();
     } catch (error) {
       console.error('Error sending message:', error);
       this.error = error instanceof Error ? error.message : 'Failed to get response. Please try again.';
@@ -257,6 +263,17 @@ export class SiteBot extends LitElement {
         throw new Error('Invalid AI configuration. Please check your provider and API key.');
       }
 
+      const systemPrompt = `You are a helpful website assistant for ${this.headerName}. 
+Your purpose is to help users with questions about this website/company only.
+Use this context about the website/company: ${this.contextText}
+
+Important guidelines:
+1. Only answer questions related to the website/company information provided
+2. If a question is outside the provided context, politely explain that you can only help with website/company related questions
+3. Keep responses concise and focused
+4. Use the context provided to give accurate information
+5. Don't make up information that's not in the context`;
+
       switch (provider) {
         case 'openai':
           response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -268,10 +285,12 @@ export class SiteBot extends LitElement {
             body: JSON.stringify({
               model: model || 'gpt-3.5-turbo',
               messages: [
-                { role: 'system', content: `You are a helpful chatbot assistant. Use this context about the website: ${this.contextText}` },
+                { role: 'system', content: systemPrompt },
                 { role: 'user', content: userMessage }
               ],
-              temperature: 0.7
+              temperature: 0.7,
+              max_tokens: 150, // Limit response length
+              presence_penalty: 0.6 // Encourage focused responses
             })
           });
           if (!response.ok) {
@@ -291,9 +310,15 @@ export class SiteBot extends LitElement {
             body: JSON.stringify({
               contents: [{
                 parts: [{
-                  text: `Context: ${this.contextText}\nUser: ${userMessage}`
+                  text: `${systemPrompt}\n\nUser question: ${userMessage}`
                 }]
-              }]
+              }],
+              generationConfig: {
+                maxOutputTokens: 150,
+                temperature: 0.7,
+                topP: 0.8,
+                topK: 40
+              }
             })
           });
           if (!response.ok) {
@@ -315,9 +340,9 @@ export class SiteBot extends LitElement {
               model: model || 'claude-3-opus-20240229',
               messages: [{
                 role: 'user',
-                content: `Context: ${this.contextText}\nUser: ${userMessage}`
+                content: `${systemPrompt}\n\nUser question: ${userMessage}`
               }],
-              max_tokens: 1000
+              max_tokens: 150
             })
           });
           if (!response.ok) {
@@ -337,9 +362,11 @@ export class SiteBot extends LitElement {
             body: JSON.stringify({
               model: model || 'deepseek-chat',
               messages: [
-                { role: 'system', content: `You are a helpful chatbot assistant. Use this context about the website: ${this.contextText}` },
+                { role: 'system', content: systemPrompt },
                 { role: 'user', content: userMessage }
-              ]
+              ],
+              max_tokens: 150,
+              temperature: 0.7
             })
           });
           if (!response.ok) {

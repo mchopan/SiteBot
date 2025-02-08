@@ -1,5 +1,5 @@
 {
-  "name": "sitebot",
+  "name": "@mchopan/sitebot",
   "version": "1.0.0",
   "description": "Universal chatbot for any JS framework",
   "main": "dist/sitebot.js",
@@ -17,11 +17,10 @@
     "npm",
     "website",
     "universal",
-    "chatbot-ai",
-    "chatbot",
-    "chatbot-ai",
-    "chatbot-ai",
-    "chatbot-ai"
+    "openai",
+    "gemini",
+    "claude",
+    "deepseek"
   ],
   "author": "Manzoor Chopan",
   "license": "MIT",

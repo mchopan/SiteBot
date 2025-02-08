@@ -11,13 +11,13 @@ A framework-agnostic AI-powered chatbot for websites. This chatbot allows users 
 
 ## Installation
 ```sh
-npm install chatbot-ai
+npm install sitebot
 ```
 
 ## Usage
 ### Basic Setup
 ```ts
-import Chatbot from "chatbot-ai";
+import Chatbot from "sitebot";
 
 const bot = new Chatbot({
   apiKey: "YOUR_AI_API_KEY",

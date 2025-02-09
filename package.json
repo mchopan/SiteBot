@@ -20,7 +20,9 @@
     "openai",
     "gemini",
     "claude",
-    "deepseek"
+    "deepseek",
+    "chatgpt",
+    "mchopan"
   ],
   "author": "Manzoor Chopan",
   "license": "MIT",

@@ -202,9 +202,12 @@ export class SiteBot extends LitElement {
   private toggleChat() {
     this.isOpen = !this.isOpen;
     if (this.isOpen) {
+      this.setAttribute('chat-open', '');
       this.unreadMessages = 0;
       this.focusInput();
       this.scrollToBottom();
+    } else {
+      this.removeAttribute('chat-open');
     }
     if (this.error) {
       this.error = null;
@@ -213,6 +216,7 @@ export class SiteBot extends LitElement {
 
   private closeChat() {
     this.isOpen = false;
+    this.removeAttribute('chat-open');
   }
 
   private scrollToBottom(smooth = true) {

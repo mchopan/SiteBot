@@ -41,6 +41,7 @@ export class SiteBot extends LitElement {
   };
 
   @property({ type: String }) textFile = '';
+  @property({ type: String, attribute: 'context-text' }) contextText = '';
   @property({ type: String, attribute: 'header-name' }) headerName = 'Chatbot';
   @property({ type: String, attribute: 'bot-icon' }) botIcon = '';
   
@@ -85,7 +86,6 @@ export class SiteBot extends LitElement {
   @state() private isLoading = false;
   @state() private error: string | null = null;
   private messages: { text: string; isBot: boolean; timestamp: string }[] = [];
-  private contextText: string = '';
   private inputRef?: HTMLInputElement;
   private messagesRef?: HTMLDivElement;
   private unreadMessages = 0;
@@ -143,8 +143,8 @@ export class SiteBot extends LitElement {
       });
     }
 
-    // Load text file if provided
-    if (this.textFile) {
+    // Check for context
+    if (!this.contextText && this.textFile) {
       try {
         const response = await fetch(this.textFile);
         if (!response.ok) {
@@ -155,8 +155,8 @@ export class SiteBot extends LitElement {
         console.error('Error loading text file:', error);
         this.error = 'Failed to load context file. The chatbot may have limited functionality.';
       }
-    } else {
-      this.error = 'Please provide a context file to help me better assist users with website-related questions.';
+    } else if (!this.contextText) {
+      this.error = 'Please provide context text to help me better assist users with website-related questions.';
     }
   }
 
@@ -326,6 +326,10 @@ Important guidelines:
             throw new Error(error.error?.message || 'Gemini API request failed');
           }
           const geminiData = await response.json();
+          if (!geminiData?.candidates?.[0]?.content?.parts?.[0]?.text) {
+            console.error('Unexpected Gemini API response:', geminiData);
+            throw new Error('Invalid response format from Gemini API');
+          }
           return geminiData.candidates[0].content.parts[0].text;
 
         case 'claude':

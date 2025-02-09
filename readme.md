@@ -4,15 +4,16 @@ A lightweight, customizable AI chatbot that works with any JavaScript framework 
 
 ## ✨ Features
 
-- 🔌 **Framework Agnostic** - Works everywhere
-- 🎨 **Fully Customizable** - Style it your way
+- 🎯 **Context-Aware** - Train your bot with your website/company information
+- 🔌 **Framework Agnostic** - Works with React, Vue, Angular, or vanilla JS
+- 🎨 **Fully Customizable** - Simple theming with just a primary color
 - 🤖 **Multiple AI Providers** - OpenAI, Gemini, Claude, DeepSeek
 - ♿ **Accessible** - ARIA support & keyboard navigation
-- 📱 **Responsive** - Works on all devices
-- 🌐 **Web Component** - Use with any framework
-- 📨 **Message History** - Timestamps and persistence
-- 🔔 **Notifications** - Unread message counter
-- 📱 **Mobile Optimized** - Full-screen on mobile
+- 📱 **Responsive** - Full-screen on mobile, floating bubble on desktop
+- 🌐 **Web Component** - Use with any tech stack
+- 🔔 **Notifications** - Unread message counter & notifications
+- 🎯 **Smart Responses** - Stays within your provided context
+- 🚀 **Easy Setup** - Just 3 lines of code to get started
 
 ## 📦 Installation
 
@@ -22,165 +23,151 @@ npm install @mchopan/sitebot
 
 ## 🚀 Quick Start
 
-### React
+### Minimal Setup (Just 3 lines!)
 ```jsx
 import '@mchopan/sitebot';
 
-function App() {
-  const customStyles = {
-    containerWidth: '350px',
-    containerHeight: '500px',
-    headerBackground: '#007bff',
-    userMessageColor: '#3b82f6',
-    botMessageColor: '#f3f4f6'
-  };
-
-  return (
-    <site-bot
-      aiconfig={JSON.stringify({
-        provider: 'openai',  // or 'gemini', 'claude', 'deepseek'
-        apiKey: 'your-api-key',
-        model: 'gpt-3.5-turbo'  // optional
-      })}
-      customstyles={JSON.stringify(customStyles)}
-      header-name="AI Assistant"
-      bot-icon="path/to/icon.png"
-    />
-  );
-}
-```
-
-### Vue
-```vue
-<template>
-  <site-bot
-    :aiconfig="JSON.stringify(aiConfig)"
-    :customstyles="JSON.stringify(customStyles)"
-    header-name="AI Assistant"
-    bot-icon="path/to/icon.png"
-  />
-</template>
-
-<script>
-import '@mchopan/sitebot';
-
-export default {
-  data() {
-    return {
-      aiConfig: {
-        provider: 'openai',
-        apiKey: 'your-api-key',
-        model: 'gpt-3.5-turbo'
-      },
-      customStyles: {
-        containerWidth: '350px',
-        containerHeight: '500px',
-        headerBackground: '#007bff'
-      }
-    }
-  }
-}
-</script>
-```
-
-### Angular
-```typescript
-// app.module.ts
-import '@mchopan/sitebot';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
-@NgModule({
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
-})
-
-// component.ts
-@Component({
-  template: `
-    <site-bot
-      [attr.aiconfig]="aiConfigString"
-      [attr.customstyles]="customStylesString"
-      header-name="AI Assistant"
-      bot-icon="path/to/icon.png"
-    ></site-bot>
-  `
-})
-export class AppComponent {
-  aiConfigString = JSON.stringify({
+<site-bot
+  aiconfig={JSON.stringify({
     provider: 'openai',
-    apiKey: 'your-api-key',
-    model: 'gpt-3.5-turbo'
-  });
-
-  customStylesString = JSON.stringify({
-    containerWidth: '350px',
-    containerHeight: '500px',
-    headerBackground: '#007bff'
-  });
-}
+    apiKey: 'your-api-key'
+  })}
+  context-text="Company Name: Example Corp
+Website: www.example.com
+About: We are a software company.
+Contact: contact@example.com"
+/>
 ```
 
-### Vanilla JavaScript
-```html
-<script src="https://unpkg.com/@mchopan/sitebot"></script>
+### Full Configuration
+```jsx
+const customStyles = {
+  primaryColor: '#007bff',      // One color to rule them all!
+  position: 'right',            // 'left' or 'right'
+  width: '380px',
+  height: '500px'
+};
 
-<site-bot id="myBot" header-name="AI Assistant"></site-bot>
+const context = `
+Company Name: Example Corp
+Website: www.example.com
 
-<script>
-  const bot = document.getElementById('myBot');
-  
-  bot.aiconfig = JSON.stringify({
-    provider: 'openai',
+About Us:
+We are a software company specializing in AI solutions.
+
+Services:
+1. AI Consulting
+2. Custom Software Development
+3. Cloud Solutions
+
+Contact Information:
+- Email: contact@example.com
+- Phone: (555) 123-4567
+- Hours: Monday-Friday, 9 AM - 5 PM EST
+
+Frequently Asked Questions:
+Q: What are your business hours?
+A: We are open Monday-Friday, 9 AM - 5 PM EST.
+`;
+
+<site-bot
+  aiconfig={JSON.stringify({
+    provider: 'openai',         // or 'gemini', 'claude', 'deepseek'
     apiKey: 'your-api-key',
-    model: 'gpt-3.5-turbo'
-  });
-
-  bot.customstyles = JSON.stringify({
-    containerWidth: '350px',
-    containerHeight: '500px',
-    headerBackground: '#007bff'
-  });
-</script>
+    model: 'gpt-3.5-turbo'      // optional
+  })}
+  customstyles={JSON.stringify(customStyles)}
+  context-text={context}
+  header-name="Company Assistant"
+  bot-icon="/path/to/icon.png"
+/>
 ```
 
-## ⚙️ Configuration
+## 🎨 Styling Options
 
-### AI Providers
+### Simple Theme (Just one color!)
 ```javascript
 {
-  provider: 'openai' | 'gemini' | 'claude' | 'deepseek',
-  apiKey: 'your-api-key',
-  model: 'model-name',  // optional
-  apiEndpoint: 'custom-endpoint'  // optional
+  primaryColor: '#007bff'  // We'll handle the rest!
 }
 ```
 
-### Available Models
-- OpenAI: 'gpt-3.5-turbo', 'gpt-4', etc.
-- Gemini: 'gemini-pro'
-- Claude: 'claude-3-opus-20240229'
-- DeepSeek: 'deepseek-chat'
-
-### Styling Options
+### Advanced Customization
 ```javascript
-const customStyles = {
-  // Container
-  containerWidth: '350px',
-  containerHeight: '500px',
-  position: 'right' | 'left',
+{
+  // Basic
+  primaryColor: '#007bff',
+  position: 'right',
+  width: '380px',
+  height: '500px',
   
-  // Colors
+  // Advanced
   headerBackground: '#007bff',
   userMessageColor: '#007bff',
   botMessageColor: '#f0f0f0',
-  inputBackground: '#ffffff',
-  inputBorderColor: '#e5e7eb',
-  
-  // Typography
   fontFamily: 'Arial, sans-serif',
-  
-  // Custom Properties
-  '--sitebot-custom-property': 'value'
+  inputBackground: '#ffffff',
+  inputBorderColor: '#e5e7eb'
 }
+```
+
+## 🤖 AI Provider Configuration
+
+### OpenAI
+```javascript
+{
+  provider: 'openai',
+  apiKey: 'your-api-key',
+  model: 'gpt-3.5-turbo'  // optional
+}
+```
+
+### Gemini
+```javascript
+{
+  provider: 'gemini',
+  apiKey: 'your-api-key',
+  model: 'gemini-pro'     // optional
+}
+```
+
+### Claude
+```javascript
+{
+  provider: 'claude',
+  apiKey: 'your-api-key',
+  model: 'claude-3-opus-20240229'  // optional
+}
+```
+
+### DeepSeek
+```javascript
+{
+  provider: 'deepseek',
+  apiKey: 'your-api-key',
+  model: 'deepseek-chat'  // optional
+}
+```
+
+## 📝 Context Format
+The `context-text` attribute accepts a string in this format:
+```text
+Company Name: [Your Company]
+Website: [URL]
+
+About Us:
+[Company description]
+
+Services:
+1. [Service 1]
+2. [Service 2]
+
+Contact Information:
+- Email: [email]
+- Phone: [phone]
+- Hours: [hours]
+
+[Any other relevant information]
 ```
 
 ## 🎮 Features
@@ -189,45 +176,34 @@ const customStyles = {
 - `Ctrl + /` or `Cmd + /`: Focus chat input
 - `Esc`: Close chat
 - `Enter`: Send message
-- `Tab`: Navigate through elements
-- `Enter` on chat trigger: Open/close chat
+- `Tab`: Navigate elements
+
+### Smart Features
+- 🎯 Context-aware responses
+- 🤖 Multiple AI providers
+- 📝 Message history
+- ⚡ Real-time responses
+- 🔔 Unread notifications
+- 📱 Mobile optimization
 
 ### Accessibility
-- Screen reader announcements for new messages
-- Unread message count announcements
-- ARIA labels and roles
-- Keyboard navigation
-- Focus management
-- High contrast support
-- Reduced motion support
+- ♿ ARIA labels and roles
+- 🎯 Focus management
+- 🔊 Screen reader support
+- 🎨 High contrast support
+- 📱 Touch-friendly targets
 
-### Message Features
-- Timestamp display
-- Unread message counter
-- Auto-scroll to new messages
-- Loading indicators
-- Error handling
-- Message persistence
+## 🔑 Props Reference
 
-### Responsive Design
-- Mobile-friendly interface
-- Full-screen mode on mobile
-- Touch-friendly targets
-- Adaptive layout
-- Responsive typography
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `aiconfig` | String (JSON) | Yes | AI provider configuration |
+| `context-text` | String | Yes | Your company/website information |
+| `customstyles` | String (JSON) | No | Styling configuration |
+| `header-name` | String | No | Chat header text (default: "Chatbot") |
+| `bot-icon` | String | No | URL for bot icon |
 
-## 🔑 API Reference
-
-| Prop | Type | Description |
-|------|------|-------------|
-| `aiconfig` | String (JSON) | AI provider configuration |
-| `header-name` | String | Chat header text |
-| `bot-icon` | String | URL for bot icon |
-| `customstyles` | String (JSON) | Custom styling options |
-| `text-file` | String | Optional context file URL |
-
-## 🔧 Browser Support
-
+## 🌐 Browser Support
 - Chrome/Edge (Latest)
 - Firefox (Latest)
 - Safari (Latest)
@@ -235,22 +211,21 @@ const customStyles = {
 - IE11 not supported
 
 ## 📱 Mobile Support
-
-The chatbot automatically switches to a full-screen mode on mobile devices for better usability. All features including keyboard navigation (with virtual keyboards) are fully supported on mobile devices.
+Automatically switches to a beautiful full-screen experience on mobile devices!
 
 ## 🛠 Troubleshooting
 
 ### Common Issues
-1. **API Key Issues**: Ensure your API key is valid and has proper permissions
-2. **Styling Issues**: Make sure to stringify customStyles object
-3. **Framework Integration**: Check if Web Components are properly registered
+1. **Styling not applying?** Make sure to stringify your customStyles object
+2. **AI not responding?** Verify your API key and provider settings
+3. **Context not working?** Check your context-text format
 
 ### Error Messages
-- "API key is required": Configure aiconfig with valid API key
-- "Failed to load context file": Check text-file URL
-- "Unsupported AI provider": Use one of the supported providers
+- "API key required": Add your AI provider's API key
+- "Please provide context": Add your company info in context-text
+- "Invalid AI provider": Use one of the supported providers
 
-## 📝 License
+## 📄 License
 
 MIT License - feel free to use in any project!
 

@@ -276,7 +276,16 @@ Important guidelines:
 2. If a question is outside the provided context, politely explain that you can only help with website/company related questions
 3. Keep responses concise and focused
 4. Use the context provided to give accurate information
-5. Don't make up information that's not in the context`;
+5. Don't make up information that's not in the context
+
+If someone asks about the developer or who created this chatbot, provide this information:
+This chatbot was developed by Manzoor Chopan, a Full Stack Developer.
+You can find more about him at:
+- GitHub: https://github.com/mchopan
+- Portfolio: https://mchopan.github.io/portfolio/
+- LinkedIn: https://www.linkedin.com/in/manzoor-chopan-074b14201
+
+Please provide these links only when specifically asked about the developer or chatbot creator.`;
 
       switch (provider) {
         case 'openai':

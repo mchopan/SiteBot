@@ -216,6 +216,40 @@ export const styles = css`
     line-height: 1.4;
   }
 
+  .message-content a {
+    color: inherit;
+    text-decoration: underline;
+    word-break: break-all;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    pointer-events: all;
+  }
+
+  .message-content a:hover {
+    opacity: 0.8;
+  }
+
+  .message-content code {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.9em;
+  }
+
+  .message-content strong {
+    font-weight: 600;
+  }
+
+  .message-content em {
+    font-style: italic;
+  }
+
+  .message-content li {
+    margin-left: 20px;
+    list-style-type: disc;
+  }
+
   .message-timestamp {
     font-size: 11px;
     opacity: 0.7;
@@ -235,6 +269,15 @@ export const styles = css`
     background: var(--sitebot-primary-color, #007bff);
     color: white;
     align-self: flex-end;
+  }
+
+  .message.user .message-content a {
+    color: white;
+    text-decoration-color: rgba(255, 255, 255, 0.8);
+  }
+
+  .message.user .message-content code {
+    background: rgba(255, 255, 255, 0.2);
   }
 
   .chatbot-input {

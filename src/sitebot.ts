@@ -408,6 +408,35 @@ Please provide these links only when specifically asked about the developer or c
     }
   }
 
+  private parseMarkdown(text: string): string {
+    // Links: [text](url)
+    text = text.replace(
+      /\[([^\]]+)\]\(([^)]+)\)/g, 
+      (_, text, url) => {
+        // Basic URL sanitization
+        const sanitizedUrl = url.startsWith('http') ? url : `https://${url}`;
+        return `<a href="${sanitizedUrl}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">${text}</a>`;
+      }
+    );
+    
+    // Bold: **text** or __text__
+    text = text.replace(/(\*\*|__)(.*?)\1/g, '<strong>$2</strong>');
+    
+    // Italic: *text* or _text_
+    text = text.replace(/(\*|_)(.*?)\1/g, '<em>$2</em>');
+    
+    // Code: `text`
+    text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+    
+    // Lists: - item or * item
+    text = text.replace(/^([-*]) (.+)$/gm, '<li>$2</li>');
+    
+    // New lines: \n
+    text = text.replace(/\n/g, '<br>');
+    
+    return text;
+  }
+
   render() {
     const unreadBadge = this.unreadMessages > 0 && !this.isOpen ? html`
       <div class="unread-badge" role="status" aria-label="${this.unreadMessages} unread messages">
@@ -466,7 +495,7 @@ Please provide these links only when specifically asked about the developer or c
               class="message ${msg.isBot ? 'bot' : 'user'}"
               role="${msg.isBot ? 'status' : 'user'}"
             >
-              <div class="message-content">${msg.text}</div>
+              <div class="message-content" .innerHTML=${this.parseMarkdown(msg.text)}></div>
               <div class="message-timestamp" aria-label="Sent at ${msg.timestamp}">
                 ${msg.timestamp}
               </div>

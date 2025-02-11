@@ -1,6 +1,6 @@
 {
   "name": "@mchopan/sitebot",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "description": "Universal chatbot for any JS framework",
   "main": "dist/sitebot.js",
   "types": "types/sitebot.d.ts",

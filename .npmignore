@@ -6,7 +6,7 @@ tests/
 tsconfig.json
 rollup.config.js
 *.log
-demo/
+demo.gif
 docs/
 *.test.*
 *.spec.*

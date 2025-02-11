@@ -453,7 +453,10 @@ Please provide these links only when specifically asked about the developer or c
         tabindex="0"
         @keydown=${(e: KeyboardEvent) => e.key === 'Enter' && this.toggleChat()}
       >
-        <img src="${this.botIcon || 'default-bot-icon.png'}" alt="Chat bot icon">
+        <div class="trigger-content">
+          <img src="${this.botIcon || 'default-bot-icon.png'}" alt="Chat bot icon">
+          <span class="trigger-pulse"></span>
+        </div>
         ${unreadBadge}
       </div>
       

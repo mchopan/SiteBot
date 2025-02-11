@@ -19,26 +19,18 @@ export const styles = css`
   }
 
   .chat-trigger {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
     width: 60px;
     height: 60px;
-    border-radius: 50%;
-    background: var(--sitebot-primary-color, #007bff);
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    z-index: 999;
     transition: transform 0.3s ease;
-    outline: none;
-    z-index: 1001;
   }
 
-  .chat-trigger:hover,
-  .chat-trigger:focus {
-    transform: scale(1.1);
+  .chat-trigger:hover {
+    transform: scale(1.05);
   }
 
   .chat-trigger:focus-visible {
@@ -47,10 +39,49 @@ export const styles = css`
   }
 
   .chat-trigger img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+    width: 65%;
+    height: 65%;
     object-fit: cover;
+    border-radius: 50%;
+    z-index: 2;
+  }
+
+  .trigger-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--sitebot-primary-color, #2196f3);
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .trigger-pulse {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--sitebot-primary-color, #2196f3);
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    70% {
+      transform: scale(1.3);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1.3);
+      opacity: 0;
+    }
   }
 
   .unread-badge {
@@ -60,14 +91,16 @@ export const styles = css`
     background: #ff4444;
     color: white;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 12px;
     font-weight: bold;
-    animation: bounce 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 2px solid white;
+    z-index: 3;
   }
 
   .chatbot-container {

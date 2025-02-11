@@ -2,6 +2,8 @@
 
 A lightweight, customizable AI chatbot that works with any JavaScript framework or vanilla JS. Supports multiple AI providers including OpenAI, Gemini, Claude, and DeepSeek.
 
+![SiteBot Demo](./demo.gif)
+
 ## ✨ Features
 
 - 🎯 **Context-Aware** - Train your bot with your website/company information
